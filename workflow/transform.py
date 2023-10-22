@@ -72,6 +72,9 @@ def transform_web():
     # cast columns
     web_df['phone'] = web_df['phone'].astype(float, errors='ignore').astype(int, errors='ignore')
 
+    # drop duplicates
+    web_df.drop_duplicates(inplace=True)
+
     print(web_df.info())
     print(web_df)
 
@@ -131,6 +134,9 @@ def transform_fb():
     fb_df = fb_df[fb_df['domain'].str.contains(DOMAIN_CHECK_RE, na=False)]
     fb_df.dropna(subset=['domain'], inplace=True)
 
+    # drop duplicates
+    fb_df.drop_duplicates(inplace=True)
+
     print(fb_df.info())
     print(fb_df)
 
@@ -177,6 +183,9 @@ def transform_google():
     # filter df
     google_df = google_df[google_df['domain'].str.contains(DOMAIN_CHECK_RE, na=False)]
     google_df.dropna(subset=['domain'], inplace=True)
+
+    # drop duplicates
+    google_df.drop_duplicates(inplace=True)
 
     print(google_df.info())
     print(google_df)
