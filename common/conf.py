@@ -6,3 +6,5 @@ SOURCE_FOLDER = "data/source_datasets"
 RAW_FOLDER = "data/raw_datasets"
 TRANSFORM_FOLDER = "data/transform_datasets"
 PROCESS_FOLDER = "data/process_datasets"
+
+COMPANY_SUFFIXES_LIST = ['_inc', '_corp', '_llp', '_llc', '_ltd', '_co', '_limited']
