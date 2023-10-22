@@ -20,6 +20,7 @@ TRANSFORM_GOOGLE_PATH = os.path.join(PROJECT_PATH, TRANSFORM_FOLDER, GOOGLE_FILE
 
 DOMAIN_CHECK_RE = r'^[a-z0-9._-]*$'
 DOMAIN_SUFFIX_CHECK_RE = r'^[a-z0-9._-]*$'
+PHONE_CHECK_RE = r'^[0-9E.+]*$'
 
 
 def transform_web():
@@ -65,7 +66,11 @@ def transform_web():
     # filter df
     web_df = web_df[web_df['domain'].str.contains(DOMAIN_CHECK_RE, na=False)]
     web_df = web_df[web_df['domain_suffix'].str.contains(DOMAIN_SUFFIX_CHECK_RE, na=False)]
+    web_df = web_df[web_df['phone'].str.contains(PHONE_CHECK_RE, na=False)]
     web_df.dropna(subset=['domain'], inplace=True)
+
+    # cast columns
+    web_df['phone'] = web_df['phone'].astype(float, errors='ignore').astype(int, errors='ignore')
 
     print(web_df.info())
     print(web_df)
