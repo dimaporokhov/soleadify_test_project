@@ -1,4 +1,5 @@
 import os
+import re
 
 import numpy as np
 import pandas as pd
@@ -64,9 +65,22 @@ def transform_web():
                 web_df[col] = web_df[col].str.replace(suffix, "")
 
     # filter df
-    web_df = web_df[web_df['domain'].str.contains(DOMAIN_CHECK_RE, na=False)]
-    web_df = web_df[web_df['domain_suffix'].str.contains(DOMAIN_SUFFIX_CHECK_RE, na=False)]
-    web_df = web_df[web_df['phone'].str.contains(PHONE_CHECK_RE, na=False)]
+    web_df = web_df[
+        web_df['domain'].apply(
+            lambda x: x is np.nan or isinstance(x, str) and bool(re.match(DOMAIN_CHECK_RE, x))
+        )
+    ]
+    web_df = web_df[
+        web_df['domain_suffix'].apply(
+            lambda x: x is np.nan or isinstance(x, str) and bool(re.match(DOMAIN_SUFFIX_CHECK_RE, x))
+        )
+    ]
+    web_df = web_df[
+        web_df['phone'].apply(
+            lambda x: x is np.nan or isinstance(x, str) and bool(re.match(PHONE_CHECK_RE, x))
+        )
+    ]
+
     web_df.dropna(subset=['domain'], inplace=True)
 
     # cast columns
@@ -131,7 +145,11 @@ def transform_fb():
                 fb_df[col] = fb_df[col].str.replace(suffix, "")
 
     # filter df
-    fb_df = fb_df[fb_df['domain'].str.contains(DOMAIN_CHECK_RE, na=False)]
+    fb_df = fb_df[
+        fb_df['domain'].apply(
+            lambda x: x is np.nan or isinstance(x, str) and bool(re.match(DOMAIN_CHECK_RE, x))
+        )
+    ]
     fb_df.dropna(subset=['domain'], inplace=True)
 
     # drop duplicates
@@ -181,7 +199,11 @@ def transform_google():
                 google_df[col] = google_df[col].str.replace(suffix, "")
 
     # filter df
-    google_df = google_df[google_df['domain'].str.contains(DOMAIN_CHECK_RE, na=False)]
+    google_df = google_df[
+        google_df['domain'].apply(
+            lambda x: x is np.nan or isinstance(x, str) and bool(re.match(DOMAIN_CHECK_RE, x))
+        )
+    ]
     google_df.dropna(subset=['domain'], inplace=True)
 
     # drop duplicates
