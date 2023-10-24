@@ -95,7 +95,6 @@ def transform_web():
     web_df.drop_duplicates(inplace=True)
 
     print(web_df.info())
-    print(web_df)
 
     print(f"WRITING TRANSFORMED WEB DF TO {TRANSFORM_WEB_PATH}")
     web_df.to_csv(TRANSFORM_WEB_PATH, index=False)
@@ -174,7 +173,6 @@ def transform_fb():
     fb_df.drop_duplicates(inplace=True)
 
     print(fb_df.info())
-    print(fb_df)
 
     print(f"WRITING TRANSFORMED FB DF TO {TRANSFORM_FB_PATH}")
     fb_df.to_csv(TRANSFORM_FB_PATH, index=False)
@@ -240,7 +238,6 @@ def transform_google():
     google_df.drop_duplicates(inplace=True)
 
     print(google_df.info())
-    print(google_df)
 
     print(f"WRITING TRANSFORMED GOOGLE DF TO {TRANSFORM_GOOGLE_PATH}")
     google_df.to_csv(TRANSFORM_GOOGLE_PATH, index=False)
