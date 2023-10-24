@@ -234,7 +234,7 @@ def transform_google():
             lambda x: x is np.nan or isinstance(x, str) and bool(re.match(DOMAIN_CHECK_RE, x))
         )
     ]
-    google_df.dropna(subset=['gg_domain'], inplace=True)
+    google_df.dropna(subset=['gg_domain', 'gg_company_name'], inplace=True)
 
     # drop duplicates
     google_df.drop_duplicates(inplace=True)
