@@ -1,0 +1,13 @@
+/data/source_datasets/facebook_dataset.csv
+/data/source_datasets/google_dataset.csv
+/data/source_datasets/website_dataset.csv
+
+/data/raw_datasets/facebook_dataset.csv
+/data/raw_datasets/google_dataset.csv
+/data/raw_datasets/website_dataset.csv
+
+/data/transform_datasets/facebook_dataset.csv
+/data/transform_datasets/google_dataset.csv
+/data/transform_datasets/website_dataset.csv
+
+/data/processed_datasets/fb_google_web_dataset.csv
