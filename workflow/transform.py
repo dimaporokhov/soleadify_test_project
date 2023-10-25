@@ -19,8 +19,8 @@ TRANSFORM_FB_PATH = os.path.join(PROJECT_PATH, TRANSFORM_FOLDER, FB_FILE_NAME)
 RAW_GOOGLE_PATH = os.path.join(PROJECT_PATH, RAW_FOLDER, GOOGLE_FILE_NAME)
 TRANSFORM_GOOGLE_PATH = os.path.join(PROJECT_PATH, TRANSFORM_FOLDER, GOOGLE_FILE_NAME)
 
-DOMAIN_CHECK_RE = r'^[a-z0-9._-]*$'
-DOMAIN_SUFFIX_CHECK_RE = r'^[a-z0-9._-]*$'
+DOMAIN_CHECK_RE = r'^[a-z0-9.-]*$'
+DOMAIN_SUFFIX_CHECK_RE = r'^[a-z0-9.]*$'
 PHONE_CHECK_RE = r'^[0-9E.+]*$'
 
 COMPANY_SUFFIXES_LIST = ['_inc', '_corp', '_llp', '_llc', '_ltd', '_co', '_limited']
@@ -91,7 +91,7 @@ def transform_web():
     web_df.dropna(subset=['web_domain'], inplace=True)
 
     # cast columns
-    web_df['web_phone'] = web_df['web_phone'].astype(float, errors='ignore').astype(int, errors='ignore')
+    web_df['web_phone'] = web_df['web_phone'].astype(float, errors='ignore')
 
     # drop duplicates
     web_df.drop_duplicates(inplace=True)
