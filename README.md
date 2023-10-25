@@ -1,7 +1,10 @@
 # Soleadify Test Project
 
-## Presentation about this project:
+## Presentation:
 https://docs.google.com/presentation/d/1g2QOvGpoyxp2wIlX0P_LrLo0gpi4WR093ud9PwfLBuk/edit?usp=sharing
+
+## Report:
+https://github.com/dimaporokhov/soleadify_test_project/raw/main/soleadify_test_project_report.docx
 
 ## Code running
 * **install python3**
