@@ -4,7 +4,7 @@ import pandas as pd
 
 from common.conf import FB_FILE_NAME, GOOGLE_FILE_NAME, WEB_FILE_NAME, FB_GOOGLE_WEB_FILE_NAME, \
     TRANSFORM_FOLDER, PROCESS_FOLDER
-from common.helper import get_project_path
+from common.helper import get_project_path, timeit
 
 PROJECT_PATH = get_project_path()
 
@@ -65,7 +65,7 @@ def join_web_and_fb():
     fb_df = pd.read_csv(TRANSFORM_FB_PATH)
 
     result_df = fb_df.merge(web_df, left_on='fb_domain', right_on='web_domain', how='left')
-    print("Joined WEB and FB datasets info")
+    print("JOINED WEB and FB DATASETS INFO")
     print(result_df.info())
 
     return result_df
@@ -80,10 +80,10 @@ def join_web_fb_google():
     google_df.dropna(subset=google_join_cols)
 
     web_fb_df = join_web_and_fb()
-    web_fb_not_equal_domains_df = web_fb_df[web_fb_df.fb_company_name != web_fb_df.web_company_name]
+    web_fb_not_equal_companies_df = web_fb_df[web_fb_df.fb_company_name != web_fb_df.web_company_name]
 
     web_fb_df = web_fb_df.dropna(subset=fb_join_cols)
-    web_fb_not_equal_domains_df = web_fb_not_equal_domains_df.dropna(subset=web_join_cols)
+    web_fb_not_equal_companies_df = web_fb_not_equal_companies_df.dropna(subset=web_join_cols)
 
     result_df = pd.concat(
         [
@@ -93,7 +93,7 @@ def join_web_fb_google():
                 right_on=fb_join_cols
             ),
             google_df.merge(
-                web_fb_not_equal_domains_df,
+                web_fb_not_equal_companies_df,
                 left_on=google_join_cols,
                 right_on=web_join_cols
             )
@@ -102,23 +102,26 @@ def join_web_fb_google():
     result_df = result_df[FINAL_DF_COLUMNS]
     result_df.sort_values(
         by=[
-            "fb_domain",
-            "fb_company_name",
+            "gg_company_name",
+            "gg_domain",
             "fb_category",
-            "fb_country",
-            "fb_region",
-            "fb_city"
         ],
         ascending=True,
         inplace=True
     )
-    print("RESULT DF info:")
+    print("RESULT DF INFO:")
     print(result_df.info())
 
+    print(f"WRITING RESULT DF TO {PROCESS_FB_GOOGLE_WEB_PATH}")
     result_df.to_csv(PROCESS_FB_GOOGLE_WEB_PATH, index=False)
+
+
+@timeit
+def main():
+    join_web_fb_google()
 
 
 if __name__ == '__main__':
     pd.set_option('display.max_columns', None)
 
-    join_web_fb_google()
+    main()

@@ -6,7 +6,7 @@ import pandas as pd
 
 from common.conf import FB_FILE_NAME, GOOGLE_FILE_NAME, WEB_FILE_NAME, \
     RAW_FOLDER, TRANSFORM_FOLDER
-from common.helper import get_project_path, escape_special_characters
+from common.helper import get_project_path, escape_special_characters, timeit
 
 PROJECT_PATH = get_project_path()
 
@@ -95,7 +95,7 @@ def transform_web():
 
     # drop duplicates
     web_df.drop_duplicates(inplace=True)
-
+    print("TRANSFORMED WEB DF INFO:")
     print(web_df.info())
 
     print(f"WRITING TRANSFORMED WEB DF TO {TRANSFORM_WEB_PATH}")
@@ -173,7 +173,7 @@ def transform_fb():
 
     # drop duplicates
     fb_df.drop_duplicates(inplace=True)
-
+    print("TRANSFORMED FB DF INFO:")
     print(fb_df.info())
 
     print(f"WRITING TRANSFORMED FB DF TO {TRANSFORM_FB_PATH}")
@@ -238,16 +238,19 @@ def transform_google():
 
     # drop duplicates
     google_df.drop_duplicates(inplace=True)
-
+    print("TRANSFORMED GOOGLE DF INFO:")
     print(google_df.info())
 
     print(f"WRITING TRANSFORMED GOOGLE DF TO {TRANSFORM_GOOGLE_PATH}")
     google_df.to_csv(TRANSFORM_GOOGLE_PATH, index=False)
 
 
-if __name__ == '__main__':
-    pd.set_option('display.max_columns', None)
-
+@timeit
+def main():
     transform_web()
     transform_fb()
     transform_google()
+
+
+if __name__ == '__main__':
+    main()

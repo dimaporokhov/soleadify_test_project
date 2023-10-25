@@ -4,7 +4,7 @@ import pandas as pd
 
 from common.conf import FB_FILE_NAME, GOOGLE_FILE_NAME, WEB_FILE_NAME, \
     SOURCE_FOLDER, RAW_FOLDER
-from common.helper import get_project_path
+from common.helper import get_project_path, timeit
 
 PROJECT_PATH = get_project_path()
 
@@ -54,7 +54,12 @@ def raw_google():
     google_df.to_csv(RAW_GOOGLE_PATH, index=False)
 
 
-if __name__ == '__main__':
+@timeit
+def main():
     raw_web()
     raw_fb()
     raw_google()
+
+
+if __name__ == '__main__':
+    main()
