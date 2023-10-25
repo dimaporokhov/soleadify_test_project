@@ -54,6 +54,29 @@ def nan_percent(path):
     plt.show()
 
 
+def percent_of_values_in_df(path1: str, path2: str, col1: str = "fb_domain", col2: str = "web_domain"):
+    df1 = pd.read_csv(path1)[col1]
+    df2 = pd.read_csv(path2)[col2]
+
+    percent_overlap = (df2.isin(df1).sum() / len(df2)) * 100
+    print(percent_overlap)
+
+    percent_not_overlap = 100 - percent_overlap
+
+    # Create a pie chart to represent the percentage of overlap
+    labels = ['Overlap', 'Non-Overlap']
+    sizes = [percent_overlap, percent_not_overlap]
+    colors = ['lightblue', 'lightgray']
+
+    plt.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%')
+    plt.title('Percentage of Overlap')
+    plt.axis('equal')
+
+    # Show the plot
+    plt.tight_layout()
+    plt.show()
+
+
 if __name__ == '__main__':
     unique_values_percent(RAW_WEB_PATH)
     unique_values_percent(RAW_FB_PATH)
@@ -62,3 +85,5 @@ if __name__ == '__main__':
     nan_percent(TRANSFORM_WEB_PATH)
     nan_percent(TRANSFORM_FB_PATH)
     nan_percent(TRANSFORM_GOOGLE_PATH)
+
+    percent_of_values_in_df(TRANSFORM_FB_PATH, TRANSFORM_WEB_PATH)
