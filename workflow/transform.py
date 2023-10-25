@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 
 from common.conf import FB_FILE_NAME, GOOGLE_FILE_NAME, WEB_FILE_NAME, \
-    RAW_FOLDER, TRANSFORM_FOLDER, COMPANY_SUFFIXES_LIST
+    RAW_FOLDER, TRANSFORM_FOLDER
 from common.helper import get_project_path, escape_special_characters
 
 PROJECT_PATH = get_project_path()
@@ -22,6 +22,8 @@ TRANSFORM_GOOGLE_PATH = os.path.join(PROJECT_PATH, TRANSFORM_FOLDER, GOOGLE_FILE
 DOMAIN_CHECK_RE = r'^[a-z0-9._-]*$'
 DOMAIN_SUFFIX_CHECK_RE = r'^[a-z0-9._-]*$'
 PHONE_CHECK_RE = r'^[0-9E.+]*$'
+
+COMPANY_SUFFIXES_LIST = ['_inc', '_corp', '_llp', '_llc', '_ltd', '_co', '_limited']
 
 
 def transform_web():
