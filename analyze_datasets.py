@@ -27,7 +27,7 @@ def unique_values_percent(path: str):
     # Plot the percentage of unique values
     plt.figure(figsize=(10, 5))
     sns.barplot(x=unique_percentage.index, y=unique_percentage.values)
-    plt.title('Percentage of NaN Values')
+    plt.title('Percentage of Unique Values')
     plt.ylabel('Percentage')
     plt.xlabel('Columns')
     plt.xticks(rotation=90)
